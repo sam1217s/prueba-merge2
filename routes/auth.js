@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+
 const authController = require('../controllers/authController');
 
 // Middleware de autenticación (simulado para el desarrollador 3)
@@ -19,5 +20,6 @@ const authenticateToken = (req, res, next) => {
 router.post('/register', authController.register);
 router.post('/login', authController.login);
 router.get('/dashboard', authenticateToken, authController.getDashboardData);
+
 
 module.exports = router;
