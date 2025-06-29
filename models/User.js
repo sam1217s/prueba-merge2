@@ -4,6 +4,21 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
 
+    required: true,
+    unique: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    default: null
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+
     required: [true, 'Username is required'],
     unique: true,
     trim: true,
@@ -34,6 +49,12 @@ const userSchema = new mongoose.Schema({
   lastLogin: {
     type: Date,
     default: null
+  }
+});
+
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;
   },
   isActive: {
     type: Boolean,

@@ -3,16 +3,16 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-
 const authRoutes = require('./routes/auth');
 
 const app = express();
+const PORT = process.env.PORT || 4000;
 
 // Middlewares
 app.use(cors());
 app.use(express.json());
 
-// Middleware para logging de requests
+// Logging de requests
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.path} - ${new Date().toISOString()}`);
   next();
@@ -22,51 +22,29 @@ app.use((req, res, next) => {
 app.use('/api/auth', authRoutes);
 app.use(express.static('public'));
 
-// Ruta por defecto - redirigir a register
+// Ruta por defecto (elige la que quieras usar como principal)
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/register.html');
+  res.sendFile(__dirname + '/public/index.html'); // O usa register.html si prefieres
 });
 
-// Middleware de manejo de errores
+// Manejo de errores
 app.use((err, req, res, next) => {
   console.error('Error:', err);
   res.status(500).json({ error: 'Internal server error' });
 });
 
-// Manejar rutas no encontradas
+// Ruta no encontrada
 app.use('*', (req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
-// Conectar a MongoDB y iniciar servidor
-const PORT = process.env.PORT || 4000;
-
+// Conexión a MongoDB e inicio del servidor
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log('✅ Conectado a MongoDB');
     console.log('📊 Base de datos:', mongoose.connection.name);
-    
     app.listen(PORT, () => {
       console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
-      console.log('📁 Proyecto del Desarrollador 2 - REGISTRO');
-      console.log('✅ Funcionalidad implementada: REGISTRO');
-      console.log('❌ Funcionalidad pendiente: LOGIN (Desarrollador 1)');
-      console.log('🎯 Ruta principal: /register.html');
-=======
-// Ruta por defecto
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
-});
-
-// Conectar a MongoDB y iniciar servidor
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log('✅ Conectado a MongoDB');
-    app.listen(4000, () => {
-      console.log('🚀 Servidor corriendo en http://localhost:4000');
-      console.log('📁 Proyecto del Desarrollador 1 - LOGIN');
-      console.log('✅ Funcionalidad implementada: LOGIN');
-      console.log('❌ Funcionalidad pendiente: REGISTRO (Desarrollador 2)');
     });
   })
   .catch((error) => {
@@ -74,11 +52,10 @@ mongoose.connect(process.env.MONGO_URI)
     process.exit(1);
   });
 
-// Manejar cierre graceful
+// Cierre limpio del servidor
 process.on('SIGINT', async () => {
-  console.log('\\n🛑 Cerrando servidor...');
+  console.log('\n🛑 Cerrando servidor...');
   await mongoose.connection.close();
   console.log('✅ Conexión a MongoDB cerrada');
   process.exit(0);
 });
-  });

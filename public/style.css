@@ -87,12 +87,16 @@ body {
   cursor: pointer;
   transition: transform 0.2s ease, background 0.3s ease;
   width: 100%;
+
+  margin-bottom: 10px;
+
 }
 
 .login-box button:hover {
   transform: scale(1.03);
   background: linear-gradient(135deg, #f9ab6f 0%, #fc846c 100%);
 }
+
 
 .cuenta {
   font-size: 12px;
@@ -167,7 +171,7 @@ body {
 .register-form .subtitle {
   color: #666;
   margin-bottom: 30px;
-=======
+
 .login-box::before {
   content: '';
   position: absolute;
@@ -337,7 +341,7 @@ body {
 .register-form .register-btn {
   padding: 15px 30px;
   background: linear-gradient(135deg, #68349b 0%, #8c4ec5 50%, #aa45b1 100%);
-=======
+
 .login-box input:focus {
   border-color: #6D3C52;
   background: #fff;
@@ -401,7 +405,7 @@ body {
 
 .register-form .login-link {
   color: #8c4ec5;
-=======
+
 .login-btn:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 25px rgba(109, 60, 82, 0.3);
@@ -451,7 +455,7 @@ body {
   
   .register-form h2 {
     font-size: 24px;
-=======
+
 .register-link:hover {
   color: #8B4B6B;
   text-decoration: underline;
@@ -484,6 +488,7 @@ body {
   animation: slideIn 0.6s ease-out;
 }
 
+
 @keyframes slideIn {
   from {
     transform: translateY(40px);
@@ -494,6 +499,7 @@ body {
     opacity: 1;
   }
 }
+
 
 .form-box h2 {
   color: #333;
@@ -540,10 +546,16 @@ body {
   margin-top: 20px;
 }
 
+
+@media (max-width: 400px) {
+  .login-box, .form-box {
+    padding: 25px 20px;
+
 /* Responsive */
 @media (max-width: 400px) {
   .login-box, .form-box {
     padding: 25px 20px;
+
 
   }
 }
